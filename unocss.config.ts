@@ -46,6 +46,11 @@ export default defineConfig({
     'ellipsis-text': 'nowrap-hidden text-ellipsis',
     'transition-base': 'transition-all duration-300 ease-in-out',
     'color-text': 'color-#c7cbd5',
+    'bg-block': 'bg-#102A44',
+    'color-up': 'color-#00CE8D',
+    'color-down': 'color-#E1435C',
+    'bg-up': 'bg-#00CE8D',
+    'bg-down': 'bg-#E1435C',
   },
   theme: {
     colors: {

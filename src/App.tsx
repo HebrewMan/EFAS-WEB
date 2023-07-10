@@ -1,20 +1,25 @@
 import { Suspense } from 'react';
-import Footer from '@/components/Footer';
 import { useRoutes } from 'react-router-dom';
 import routers from './router/routerMap';
 import Web3Provider from '@/components/WalletConnect';
 import Header from '@/components/Header';
-import { Spin } from 'antd';
+import { ConfigProvider, Spin } from 'antd';
+import ColoredScrollbars from '@/components/Scrollbars/index';
 function App() {
   return (
     <Web3Provider>
-      <div className="h-100vh flex flex-col-center bg-#0B1C30">
-        <Header></Header>
-        <div className="flex-1">
-          <Suspense fallback={<Spin />}>{useRoutes(routers)}</Suspense>
+      <ConfigProvider theme={{ token: { borderRadius: 4 } }}>
+        <div className="h-100vh w-100vw overflow-hidden">
+          <ColoredScrollbars>
+            <div className="min-w-1080px h-full flex flex-col-center bg-#0B1C30">
+              <Header></Header>
+              <div className="flex-1 w-full pb-25px">
+                <Suspense fallback={<Spin />}>{useRoutes(routers)}</Suspense>
+              </div>
+            </div>
+          </ColoredScrollbars>
         </div>
-        <Footer></Footer>
-      </div>
+      </ConfigProvider>
     </Web3Provider>
   );
 }

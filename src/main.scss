@@ -2,5 +2,15 @@ html,
 body,
 #root {
   @apply h-full;
+  line-height: 1;
 }
 @import '@/styles/reset.scss';
+
+.ant-dropdown-menu {
+  background-color: #1d3a5d !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  .ant-dropdown-menu-item-active {
+    background-color: #264c7a !important;
+  }
+}

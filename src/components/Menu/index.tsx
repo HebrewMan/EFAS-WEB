@@ -1,9 +1,10 @@
 import { CaretDownOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'antd';
+import { ReactElement } from 'react';
 
 interface ItemsProps {
-  label: string;
+  label: string | ReactElement;
   key: string;
   icon?: any;
   path?: string;
@@ -21,7 +22,7 @@ const items: Array<ItemsProps> = [
     key: 'Trade',
     children: [
       {
-        label: 'Trade',
+        label: <div className="color-white">Trade</div>,
         key: 'Trade',
         href: '',
       },
@@ -32,7 +33,7 @@ const items: Array<ItemsProps> = [
     key: 'Earn',
     children: [
       {
-        label: 'Earn',
+        label: <div className="color-white">Earn</div>,
         key: 'Earn',
         href: '',
       },

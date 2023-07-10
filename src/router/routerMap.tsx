@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-import { AuthRouteObject } from 'react-router-auth-plus';
 
 // 快速导入工具函数
 const lazyLoad = (moduleName: string) => lazy(() => import(`@/pages/${moduleName}/index.tsx`));
@@ -9,7 +8,7 @@ export const ReduxToolkit = lazyLoad('ReduxToolkit');
 export const ReactQuery = lazyLoad('ReactQuery');
 export const ErrorPage = lazyLoad('ErrorPage');
 
-const routers: AuthRouteObject[] = [
+const routers = [
   {
     path: '/',
     element: (
