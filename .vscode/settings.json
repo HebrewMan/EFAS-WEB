@@ -6,5 +6,6 @@
     "source.fixAll.eslint": true
   },
   "editor.formatOnSave": true,
-  "scss.lint.unknownAtRules": "ignore"
+  "scss.lint.unknownAtRules": "ignore",
+  "i18n-ally.sourceLanguage": "zh-CN"
 }

@@ -21,7 +21,7 @@
       "~/*": ["./*"]
     },
     "baseUrl": ".",
-    "types": ["vite/client", "node", "unplugin-icons/types/react", "@iconify/json"]
+    "types": ["vite/client", "node", "unplugin-icons/types/react", "@iconify/json", "unplugin-fonts/client"]
   },
   "exclude": ["dist", "node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]

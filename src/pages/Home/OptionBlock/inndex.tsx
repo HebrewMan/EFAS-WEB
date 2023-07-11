@@ -7,6 +7,7 @@ import IconUp from '@/assets/svg/up.svg';
 import IconDown from '@/assets/svg/down.svg';
 import IconView from '@/assets/svg/view.svg';
 export default function inndex() {
+  const { t } = useTranslation();
   const items = [
     {
       label: (
@@ -18,7 +19,7 @@ export default function inndex() {
           />
           <div className="flex flex-col">
             <span className="text-12px color-white">USDT/Doge</span>
-            <span className="text-12px color-#81838C mt-3px">余额 : 33000.00</span>
+            <span className="text-12px color-#81838C mt-3px">{t('balance')} : 33000.00</span>
           </div>
         </div>
       ),
@@ -49,10 +50,10 @@ export default function inndex() {
           <CaretDownOutlined className="color-#697384" />
         </div>
       </Dropdown>
-      <div className="w-157px font-bold color-white text-14px mt-14px">余额 ：3000</div>
+      <div className="w-157px font-bold color-white text-14px mt-14px">{t('balance')} ：3000</div>
       <div className="mt-38px w-157px h-54px border b-#686A74 rounded-4px relative flex-center">
         <div className="flex items-center absolute top--10px left-16px bg-block color-#81838C px-6px text-14px">
-          结算时间
+          {t('settlement-time')}
           <Tooltip title="prompt text">
             <OouiHelpNoticeLtr className="text-10px ml-4px cursor-pointer" />
           </Tooltip>
@@ -61,13 +62,13 @@ export default function inndex() {
       </div>
       <div className="mt-25px w-157px h-54px border b-#686A74 rounded-4px relative flex-center">
         <div className="flex items-center absolute top--10px left-16px bg-block color-#81838C px-6px text-14px">
-          数量(USDT)
+          {t('number')}(USDT)
         </div>
         <span className="color-white text-18px">1200</span>
       </div>
       <div className="flex items-center px-6px text-14px mt-24px">
         <MaterialSymbolsTrendingUp className="color-up mr-10px" />
-        <span className="color-white">看涨利润</span>
+        <span className="color-white">{t('up-profits')}</span>
         <Tooltip title="prompt text">
           <OouiHelpNoticeLtr className="text-10px ml-7px color-#81838C cursor-pointer" />
         </Tooltip>
@@ -76,15 +77,15 @@ export default function inndex() {
       <div className="color-up flex-center text-16px leading-19px">+372 USDT</div>
       <button className="bg-up w-173px h-72px flex-center mt-18px rounded-4px hover:opacity-80">
         <img src={IconUp} alt="" />
-        <span className="ml-10px text-16px font-bold color-white">看涨</span>
+        <span className="ml-10px text-16px font-bold color-white">{t('look-up')}</span>
       </button>
       <button className="bg-down w-173px h-72px flex-center mt-18px rounded-4px hover:opacity-80">
         <img src={IconDown} alt="" />
-        <span className="ml-10px text-16px font-bold color-white">看跌</span>
+        <span className="ml-10px text-16px font-bold color-white">{t('look-down')}</span>
       </button>
       <div className="flex items-center px-6px text-14px mt-24px">
         <MaterialSymbolsTrendingDown className="color-down mr-10px" />
-        <span className="color-white">下跌利润</span>
+        <span className="color-white">{t('down-profits')}</span>
         <Tooltip title="prompt text">
           <OouiHelpNoticeLtr className="text-10px ml-7px color-#81838C cursor-pointer" />
         </Tooltip>
@@ -93,7 +94,7 @@ export default function inndex() {
       <div className="color-up flex-center text-16px leading-19px">+372 USDT</div>
       <div className="w-full h-90px flex-col-center bg-#1D4366 mt-42px cursor-pointer hover:opacity-80">
         <img src={IconView} alt="" />
-        <span className="text-14px font-bold mt-9px color-white">查看</span>
+        <span className="text-14px font-bold mt-9px color-white">{t('view')}</span>
       </div>
     </div>
   );

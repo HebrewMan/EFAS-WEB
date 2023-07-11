@@ -7,20 +7,10 @@ export enum EnumContentType {
 
 /** 缓存的key */
 export enum EnumStorageKey {
-  /** 主题颜色 */
-  'theme-color' = '__THEME_COLOR__',
   /** 用户token */
   'token' = '__TOKEN__',
-  /** 用户刷新token */
-  'refresh-token' = '__REFRESH_TOKEN__',
-  /** 用户信息 */
-  'user-info' = '__USER_INFO__',
-  /** 多页签路由信息 */
-  'multi-tab-routes' = '__MULTI_TAB_ROUTES__',
-  /** 用户id */
-  'user-id' = '__USER_ID__',
-  /** 用户名 */
-  'user-name' = '__USER_NAME__',
+  /** 语言 */
+  'lang' = '__LANGUAGE__',
 }
 
 /** 数据类型 */

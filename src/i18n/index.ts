@@ -1,21 +1,22 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
-import { Language } from '@/enum';
+import { EnumStorageKey, Language } from '@/enum';
+import { setLocal, getLocal } from '@/utils';
 export const LANG_CACHE_KEY = 'NFT_LANG_KEY';
 export const supportedLngs = ['zh-CN', 'en-US'];
 
 export const getInitLang = () => {
-  const langCache = localStorage.getItem(LANG_CACHE_KEY);
-  if (langCache) return langCache;
-  window.localStorage.setItem(LANG_CACHE_KEY, Language.en);
-  return Language.en;
+  const langCache = getLocal(EnumStorageKey.lang);
+  if (langCache) return langCache as string;
+  setLocal(EnumStorageKey.lang, Language.zh, 365);
+  return Language.zh as string;
 };
 export const initLang = getInitLang();
 
 export const changeLanguage = (lang: Language) => {
   i18n.changeLanguage(lang, () => {
-    window.localStorage.setItem(LANG_CACHE_KEY, lang);
+    setLocal(EnumStorageKey.lang, lang, 365);
   });
 };
 

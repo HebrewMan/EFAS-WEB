@@ -1,9 +1,13 @@
 {
-  "hello": "你好",
-  "home": "主页",
-  "welcome to": "欢迎来到",
-  "includes features": "是一个开箱即用的 React 模板，它拥有这些功能：",
-  "change lang": "切换国际化语言",
-  "to redux": "跳转到redux",
-  "github": "github"
+  "look-down": "看跌",
+  "look-up": "看涨",
+  "more": "查看更多",
+  "my-balance": "我的余额",
+  "btn-in": "注入",
+  "balance": "余额",
+  "settlement-time": "结算时间",
+  "number": "数量",
+  "up-profits": "看涨利润",
+  "down-profits": "下跌利润",
+  "view": "查看"
 }

@@ -6,6 +6,7 @@ import { store } from './store';
 import { BrowserRouter } from 'react-router-dom';
 import initI18n from './i18n';
 import './main.scss';
+import 'unfonts.css';
 import 'uno.css'; //引入unocss
 import 'nprogress/nprogress.css';
 import '@rainbow-me/rainbowkit/styles.css';
