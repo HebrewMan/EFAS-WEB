@@ -41,8 +41,8 @@
 ### 克隆到本地
 
 ```bash
-git clone https://github.com/devenskoko/react-templete
-cd react-templete
+git clone https://github.com/devenskoko/trade-option
+cd trade-option
 yarn
 ```
 
