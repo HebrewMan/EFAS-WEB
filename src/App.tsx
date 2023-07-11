@@ -14,7 +14,15 @@ function App() {
             <div className="min-w-1080px h-full flex flex-col-center bg-#0B1C30">
               <Header></Header>
               <div className="flex-1 w-full pb-25px">
-                <Suspense fallback={<Spin />}>{useRoutes(routers)}</Suspense>
+                <Suspense
+                  fallback={
+                    <div className="flex-center w-full h-full">
+                      <Spin />
+                    </div>
+                  }
+                >
+                  {useRoutes(routers)}
+                </Suspense>
               </div>
             </div>
           </ColoredScrollbars>

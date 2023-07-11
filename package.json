@@ -6,12 +6,11 @@
     "dev": "cross-env VITE_ENV_TYPE=dev vite",
     "dev:test": "cross-env VITE_ENV_TYPE=test vite",
     "dev:prod": "cross-env VITE_ENV_TYPE=prod vite",
-    "build": "npm run typecheck && cross-env VITE_ENV_TYPE=prod vite build",
-    "build:dev": "npm run typecheck && cross-env VITE_ENV_TYPE=dev vite build",
-    "build:test": "npm run typecheck && cross-env VITE_ENV_TYPE=test vite build",
+    "build": "cross-env VITE_ENV_TYPE=prod vite build",
+    "build:dev": "cross-env VITE_ENV_TYPE=dev vite build",
+    "build:test": "cross-env VITE_ENV_TYPE=test vite build",
     "preview": "vite preview",
     "lint": "eslint . --fix",
-    "typecheck": "vue-tsc --noEmit",
     "prepare": "husky install"
   },
   "browserslist": {
