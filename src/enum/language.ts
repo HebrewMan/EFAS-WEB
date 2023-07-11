@@ -1,8 +1,3 @@
-/*
- * @Author: kiki.zeng
- * @Date: 2022-11-4 17:30
- * @Description: 定义一些全局枚举值
- */
 // 多语言相关
 export enum Language {
   en = 'en-US',

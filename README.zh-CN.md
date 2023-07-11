@@ -41,7 +41,7 @@
 ### 克隆到本地
 
 ```bash
-git clone https://github.com/devenskoko/trade-option
+git clone https://github.com/devenskoko/trade-option.git
 cd trade-option
 yarn
 ```

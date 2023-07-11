@@ -1,14 +1,13 @@
 import IcBaselineLanguage from '~icons/ic/baseline-language';
 import { Dropdown, MenuProps } from 'antd';
-import { Language } from '@/utils/enum';
-import { changeLanguage } from '@/utils/i18n';
+import { Language } from '@/enum';
+import { changeLanguage } from '@/i18n';
 export default function MyLanguage() {
   const items: MenuProps['items'] = [
-    { key: Language.zh, label: '中文简体' },
-    { key: Language.tw, label: '中文繁體' },
-    { key: Language.en, label: 'English' },
-    { key: Language.jp, label: '日本語' },
-    { key: Language.tk, label: 'T ürkiye dili' },
+    { key: Language.zh, label: <div className="color-white">中文简体</div> },
+    { key: Language.tw, label: <div className="color-white">中文繁體</div> },
+    { key: Language.en, label: <div className="color-white">English</div> },
+    { key: Language.jp, label: <div className="color-white">日本語</div> },
   ];
 
   const handleMenuClick: MenuProps['onClick'] = (item: any) => {

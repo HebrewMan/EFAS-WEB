@@ -13,13 +13,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"],
+      "~/*": ["./*"]
     },
-    "types": ["unplugin-icons/types/react"]
+    "baseUrl": ".",
+    "types": ["vite/client", "node", "unplugin-icons/types/react", "@iconify/json"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "./src/*.svg"],
-  "exclude": ["node_modules"],
+  "exclude": ["dist", "node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

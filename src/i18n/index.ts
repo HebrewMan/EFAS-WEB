@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
-import { Language } from './enum';
+import { Language } from '@/enum';
 export const LANG_CACHE_KEY = 'NFT_LANG_KEY';
 export const supportedLngs = ['zh-CN', 'en-US'];
 

@@ -2,6 +2,30 @@
   "name": "react-templete",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "cross-env VITE_ENV_TYPE=dev vite",
+    "dev:test": "cross-env VITE_ENV_TYPE=test vite",
+    "dev:prod": "cross-env VITE_ENV_TYPE=prod vite",
+    "build": "npm run typecheck && cross-env VITE_ENV_TYPE=prod vite build",
+    "build:dev": "npm run typecheck && cross-env VITE_ENV_TYPE=dev vite build",
+    "build:test": "npm run typecheck && cross-env VITE_ENV_TYPE=test vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --fix",
+    "typecheck": "vue-tsc --noEmit",
+    "prepare": "husky install"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^1.0.1",
     "@reduxjs/toolkit": "^1.9.5",
@@ -23,25 +47,6 @@
     "viem": "^1.0.6",
     "wagmi": "^1.2.0"
   },
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "lint": "eslint . --fix",
-    "prepare": "husky install"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "@commitlint/cli": "^17.6.5",
     "@commitlint/config-conventional": "^17.6.5",
@@ -57,6 +62,7 @@
     "@unocss/transformer-directives": "^0.53.1",
     "@unocss/vite": "^0.53.1",
     "@vitejs/plugin-react-swc": "^3.3.2",
+    "cross-env": "^7.0.3",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
