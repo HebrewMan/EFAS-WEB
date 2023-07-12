@@ -1,38 +1,32 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '..';
+import { getLocal, setLocal } from '@/utils';
+import { EnumStorageKey, Language } from '@/enum';
+// import { getInitLang } from '@/i18n';
 
+const getInitLang = () => {
+  const langCache = getLocal(EnumStorageKey.lang) || Language.zh;
+  setLocal(EnumStorageKey.lang, Language.zh, 365);
+  return langCache as string;
+};
+
+const initLang = getInitLang();
 export interface AppState {
-  count: number;
+  language: string;
 }
 
-const initialState: AppState = { count: 0 };
-
-// pending（进行中）、fulfilled（成功）、rejected（失败）
-export const getUserData = createAsyncThunk('user/getList', async () => {
-  return await fetch('https://api.github.com/search/users?q=wang').then((res) => res.json());
-});
+const initialState: AppState = { language: initLang };
 
 export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    incremented: (state) => {
-      state.count += 1;
+    setLang: (state, action: PayloadAction<string>) => {
+      state.language = action.payload;
     },
-    decremented: (state) => {
-      state.count -= 1;
-    },
-    setCount: (state, action: PayloadAction<number>) => {
-      state.count = action.payload;
-    },
-  },
-  extraReducers(builder) {
-    builder.addCase(getUserData.fulfilled, (state, { payload }) => {
-      state.count = payload.total_count;
-    });
   },
 });
 
 export const selectAppSlice = (state: RootState) => state.app;
-export const { decremented, incremented, setCount } = appSlice.actions;
+export const { setLang } = appSlice.actions;
 export default appSlice.reducer;

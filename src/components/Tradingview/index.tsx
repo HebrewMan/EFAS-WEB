@@ -1,10 +1,14 @@
 import { ColorType, createChart, CrosshairMode, LineStyle } from 'lightweight-charts';
 import './index.scss';
-function tvInit(tvRef: any) {
+import { useRootSelector } from '@/store/hooks';
+import { selectAppSlice } from '@/store/slices/appSlice';
+
+let chart: any = null;
+function tvInit(tvRef: any, language: string) {
   if (!tvRef.current) {
     return;
   }
-  const chart = createChart(tvRef.current, {
+  chart = createChart(tvRef.current, {
     autoSize: true,
     layout: {
       background: {
@@ -34,7 +38,13 @@ function tvInit(tvRef: any) {
       borderColor: '#6B7083',
       borderVisible: false,
     },
+    localization: {
+      locale: language,
+      dateFormat: 'yyyy-MM-dd',
+    },
   });
+  console.log(language);
+
   const areaSeries = chart.addAreaSeries({
     lineColor: '#4F6F97',
     topColor: 'rgba(59, 93, 136, 0.40)',
@@ -219,10 +229,19 @@ function tvInit(tvRef: any) {
 
 export default function index() {
   const tvRef = useRef(null);
+  const { language } = useRootSelector(selectAppSlice);
+  useEffect(() => {
+    tvInit(tvRef, language);
+  }, [tvRef]);
 
   useEffect(() => {
-    tvInit(tvRef);
-  });
+    chart.applyOptions({
+      localization: {
+        locale: language,
+        dateFormat: 'yyyy-MM-dd',
+      },
+    });
+  }, [language]);
 
-  return <div ref={tvRef} className="h-full tradingview"></div>;
+  return <div ref={tvRef} className="tradingview"></div>;
 }

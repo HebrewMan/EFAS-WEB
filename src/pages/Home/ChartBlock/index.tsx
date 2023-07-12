@@ -6,6 +6,7 @@ export default function index() {
   return (
     <div className="h-full w-full">
       <LightweightCharts></LightweightCharts>
+
       <div className="bar h-66vh w-30px fixed left-24px top-17vh z-99 flex-col-center">
         <div className="color-white font-700 flex-col-center mb-5px">
           <span className="text-12px leading-16px">{t('look-down')}</span>
