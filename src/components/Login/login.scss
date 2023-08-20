@@ -1,0 +1,16 @@
+input {
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    padding-left: 20px;
+    font-size: 18px;
+}
+
+.btn {
+    margin: 0 auto;
+    background: none;
+    background-image: url('@/assets/bgs/BTN-Blank.png');
+    background-size: cover;
+}

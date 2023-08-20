@@ -1,9 +1,10 @@
-import logo from '@/assets/svg/logo.svg';
+import logo from '@/assets/icons/EFAS_LOGO_White.png';
 import { Link } from 'react-router-dom';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+// import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { CustomWalletBtn } from '@/components/WalletConnect/customWalletBtn';
 import { useAccount, useNetwork } from 'wagmi';
-import Language from '../Language';
 import Menu from '../Menu';
+import './index.scss'
 export default function Header() {
   const { address, connector } = useAccount();
   const { chain } = useNetwork();
@@ -22,16 +23,17 @@ export default function Header() {
   }, [address, connector, chain]);
 
   return (
-    <header className="h-62px w-full flex items-center justify-between px-32px">
+    <header className="h-62px w-full flex items-center justify-between px-32px " style={{ background: 'rgba(1, 1, 1, 0.35)' }}>
       <Link to="/" className="flex items-center">
-        <img src={logo} className="w-167px h-37px" alt="" />
+        <img src={logo} className="w-63px h-39px" alt="" />
+        <span className='color-white pl-16px text-18px'>AUCTION HOUSE</span>
       </Link>
-      <div className="flex-1 pl-40px">
+
+      <div className="flex-1">
         <Menu></Menu>
       </div>
-      <div className="flex-center">
-        <Language></Language>
-        <ConnectButton></ConnectButton>
+      <div className="flex-center sets">
+        <CustomWalletBtn  ></CustomWalletBtn>
       </div>
     </header>
   );

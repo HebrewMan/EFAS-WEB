@@ -1,8 +1,9 @@
 import { CaretDownOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
-import { Dropdown } from 'antd';
-import { ReactElement } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
+// import Language from '../Language';
+import { ReactElement, useState, useEffect } from 'react';
+import navBtcSelectedImage from '@/assets/bgs/tab-bg.png'
 interface ItemsProps {
   label: string | ReactElement;
   key: string;
@@ -12,70 +13,77 @@ interface ItemsProps {
   children?: Array<ItemsProps>;
 }
 const items: Array<ItemsProps> = [
+
   {
-    label: 'Home',
-    key: 'Home',
+    label: 'MARKETPLACE',
+    key: 'MarketPlace',
     href: '',
+    path: 'market',
   },
   {
-    label: 'Trade',
-    key: 'Trade',
-    children: [
-      {
-        label: <div className="color-white">Trade</div>,
-        key: 'Trade',
-        href: '',
-      },
-    ],
-  },
-  {
-    label: 'Earn',
-    key: 'Earn',
-    children: [
-      {
-        label: <div className="color-white">Earn</div>,
-        key: 'Earn',
-        href: '',
-      },
-    ],
-  },
-  {
-    label: 'NFT',
-    key: 'NFT',
+    label: 'CLAIM',
+    key: 'Claim',
     href: '',
+    path: 'claim',
   },
+  {
+    label: 'BRIDGE',
+    key: 'Bridge',
+    href: '',
+    path: 'bridge',
+  },
+
+  {
+    label: 'MY ASSETS',
+    key: 'Assets',
+    href: '',
+    path: 'my-assets',
+
+  },
+  // {
+  //   label: 'Trade',
+  //   key: 'Trade',
+  //   children: [
+  //     {
+  //       label: <div className="color-white">Trade</div>,
+  //       key: 'Trade',
+  //       href: '',
+  //     },
+  //   ],
+  // },
+
 ];
 
 export default function index() {
-  const handleMenuClick = (item: any) => {
-    console.log(item);
-  };
+
+  const [navTitle, setNavTitle] = useState('');
+
+  const location = useLocation();
+
+  const navStyle = {
+    backgroundImage: `url(${navBtcSelectedImage})`,
+    backgroundSize: 'cover',
+    color: '#ffffff',
+    padding: '0 20px'
+  }
+
+  const handleMenuClick = (item: string) => setNavTitle(item);
+
+  useEffect(() => {
+    const path = location.pathname.replace(/^\//, "");
+    if (path) setNavTitle(path);
+  })
 
   return (
-    <div className="flex items-center text-14px color-text h-40px">
-      {items.map((item: ItemsProps | any) => {
-        if (Reflect.has(item, 'children')) {
-          return (
-            <Dropdown
-              key={item.key}
-              menu={{ items: item.children, onClick: handleMenuClick }}
-              className="mx-20px h-40px"
-              placement="bottom"
-            >
-              <div className="cursor-pointer flex items-center text-14px color-text">
-                <span className="mr-5px">{item.label}</span>
-                <CaretDownOutlined className="color-#697384 mt-4px" />
-              </div>
-            </Dropdown>
-          );
-        } else {
-          return (
-            <Link key={item.key} className="mx-20px" to={item.path}>
-              {item.label}
-            </Link>
-          );
-        }
-      })}
+    <div className="flex-center text-14px color-text h-63px mr-20px" style={{ justifyContent: 'end' }}>
+      {/* <Language /> */}
+      {items.map((item: ItemsProps | any) =>
+        <Link key={item.key} className={` flex-center h-60px hover ${navTitle == item.path ? 'nav-cur' : ''}`}
+          style={(navTitle == item.path) ? navStyle : { padding: '0 20px' }}
+          to={item.path} onClick={() => handleMenuClick(item.path)}>
+          <span className='relative'>{item.label}</span>
+        </Link>
+      )}
     </div>
   );
 }

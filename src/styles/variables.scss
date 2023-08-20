@@ -1,0 +1,7 @@
+.box::-webkit-scrollbar {
+    width: 0px;
+}
+
+.box {
+    scrollbar-width: none;
+}

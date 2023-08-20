@@ -7,7 +7,7 @@ export default function MyLanguage() {
     { key: Language.zh, label: <div className="color-white">中文简体</div> },
     { key: Language.tw, label: <div className="color-white">中文繁體</div> },
     { key: Language.en, label: <div className="color-white">English</div> },
-    { key: Language.jp, label: <div className="color-white">日本語</div> },
+    { key: Language.jp, label: <div className="color-white">日語</div> },
   ];
 
   const handleMenuClick: MenuProps['onClick'] = (item: any) => {
@@ -19,7 +19,7 @@ export default function MyLanguage() {
   };
 
   return (
-    <Dropdown menu={menuProps} className="mx-8" placement="bottom">
+    <Dropdown menu={menuProps} className="mx-4" placement="bottom">
       <div className="cursor-pointer text-20px py-10px w-20px h-40px color-#C7CBD5">
         <IcBaselineLanguage></IcBaselineLanguage>
       </div>

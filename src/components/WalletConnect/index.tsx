@@ -1,26 +1,54 @@
-import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { connectorsForWallets, RainbowKitProvider, darkTheme, getDefaultWallets } from '@rainbow-me/rainbowkit';
 import {
-  argentWallet,
-  braveWallet,
   coinbaseWallet,
   imTokenWallet,
   injectedWallet,
   metaMaskWallet,
-  omniWallet,
-  rainbowWallet,
   trustWallet,
-  walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
 
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum, goerli } from 'wagmi/chains';
+import { zkSync, zkSyncTestnet, bscTestnet } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
-import { aithChain } from '@/config/constants';
 
 // 自定义链  aithChain
 
+//自定义链图标
+// const defaultChains: any[] = [
+//   {
+//     ...zkSyncTestnet,
+//     iconUrl: 'https://example.com/icons/ethereum.png',
+//   },
+//   {
+//     ...zkSync,
+//     iconUrl: 'https://example.com/icons/optimism.png',
+//   },
+// ];
+
+// const { chains, publicClient, webSocketPublicClient } = configureChains(
+//   [zkSync, zkSyncTestnet, bscTestnet],
+//   [publicProvider()],
+// );
+
+
+// const connectors = connectorsForWallets([
+
+//     [
+//       injectedWallet({ chains }),
+//       coinbaseWallet({ chains}),
+//       metaMaskWallet({ chains }),
+//       // trustWallet({ projectId, chains }),
+//       // imTokenWallet({ projectId, chains }),
+//       tokenPocketWallet({ projectId, chains }),
+//       // walletConnectWallet({ projectId, chains }),
+//     ],
+
+// ]);
+
+
+
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [mainnet, polygon, optimism, arbitrum, aithChain, ...(import.meta.env.VITE_TESTNETS === 'true' ? [goerli] : [])],
+  [zkSync, zkSyncTestnet, bscTestnet,],
   [publicProvider()],
 );
 const connectors = connectorsForWallets([
@@ -32,12 +60,8 @@ const connectors = connectorsForWallets([
       metaMaskWallet({ chains }),
       trustWallet({ chains }),
       imTokenWallet({ chains }),
-      walletConnectWallet({ chains, projectId: 'a6cc11517a10f6f12953fd67b1eb67e7' }),
+      // walletConnectWallet({ chains, projectId: 'a6cc11517a10f6f12953fd67b1eb67e7' }),
     ],
-  },
-  {
-    groupName: 'More',
-    wallets: [rainbowWallet({ chains }), argentWallet({ chains }), braveWallet({ chains }), omniWallet({ chains })],
   },
 ]);
 
@@ -48,11 +72,23 @@ const wagmiConfig = createConfig({
   webSocketPublicClient,
 });
 
+
+const myDarkTheme = darkTheme({
+  accentColor: '#000000',
+  accentColorForeground: 'white',
+  borderRadius: 'small',
+  fontStack: 'system',
+  overlayBlur: 'small',
+})
+
+
 export default function Web3Provider({ children }: any) {
   return (
     <div className="h-full w-full">
       <WagmiConfig config={wagmiConfig}>
-        <RainbowKitProvider chains={chains}>{children}</RainbowKitProvider>
+        <RainbowKitProvider
+          coolMode
+          theme={myDarkTheme} chains={chains} initialChain={zkSyncTestnet}>{children}</RainbowKitProvider>
       </WagmiConfig>
     </div>
   );

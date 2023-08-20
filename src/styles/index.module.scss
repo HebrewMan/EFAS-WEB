@@ -1,0 +1,36 @@
+.antd {
+    :global {
+        .ant-statistic-title {
+            color: #A7BAFC;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .ant-statistic-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .ant-modal-content {
+            background-color: #24262a;
+            color: #ffffff;
+
+            .ant-modal-header {
+                background: none;
+                color: #ffffff;
+            }
+
+            .ant-modal-title {
+                color: #fff;
+            }
+
+            .ant-modal-close-x {
+                color: #ffffff99;
+            }
+        }
+
+        // .ant-result-title {
+        //     color: #ff4d4f;
+        // }
+    }
+}

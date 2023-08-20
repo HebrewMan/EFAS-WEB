@@ -1,0 +1,17 @@
+.nav-cur:hover {
+    color: white;
+}
+
+.nav-cur {
+    position: relative;
+}
+
+.nav-cur::after {
+    content: "";
+    display: block;
+    background-image: url('@/assets/icons/down.png');
+    width: 30px;
+    height: 20px;
+    bottom: -15px;
+    position: absolute;
+}
