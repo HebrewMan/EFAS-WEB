@@ -16,7 +16,7 @@ export default function Footer() {
   // ]
 
   return (
-    <footer className="h-62px w-full flex items-center justify-between px-32px bg-block" style={{ opacity: '0.35' }}>
+    <footer className="h-52px w-full flex items-center justify-between px-32px bg-block" style={{ opacity: '0.35' }}>
       <Row className='color-text w-full' justify="space-between">
         <Col className='hover mr-35px cursor-pointer'>CONTACT US</Col>
         <Col className='hover mr-35px cursor-pointer'>CONTACT INFORMATION</Col>

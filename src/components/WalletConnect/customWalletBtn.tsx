@@ -1,6 +1,14 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import './index.scss'
-export const CustomWalletBtn = () => {
+import { Button } from 'antd';
+import { WalletOutlined, } from '@ant-design/icons';
+
+export const CustomWalletBtn = ({ walletText = "Log In With Wallet" }) => {
+    const handleBtnClick = (event: React.MouseEvent, action: () => void) => {
+        event.stopPropagation(); // This will stop the event from being propagated to parent elements
+        action && action();
+    }
+
     return (
         <ConnectButton.Custom>
             {({
@@ -22,7 +30,7 @@ export const CustomWalletBtn = () => {
                     (!authenticationStatus ||
                         authenticationStatus === 'authenticated');
                 return (
-                    <div
+                    <div className='wh-full'
                         {...(!ready && {
                             'aria-hidden': true,
                             'style': {
@@ -35,29 +43,30 @@ export const CustomWalletBtn = () => {
                         {(() => {
                             if (!connected) {
                                 return (
-                                    <button onClick={openConnectModal} className='connect-btn hover' type="button">
-                                        Connect Wallet
-                                    </button>
+                                    // <button  className='connect-btn hover' type="button">
+                                    //     Connect Wallet
+                                    // </button>
+                                    <Button onClick={(event) => handleBtnClick(event, openConnectModal)} type="primary" icon={<WalletOutlined />} className='btn wh-full text-14px'>
+                                        {walletText}
+                                    </Button>
                                 );
                             }
                             if (chain.unsupported) {
                                 return (
-                                    <button onClick={openChainModal} className='connect-btn' type="button">
+                                    <button onClick={(event) => handleBtnClick(event, openChainModal)} className='connect-btn' type="button">
                                         Wrong network
                                     </button>
                                 );
                             }
                             return (
                                 <div style={{ display: 'flex', gap: 12 }}>
-                                    <button
-                                        className='connect-btn'
+                                    <button className='connect-btn'
                                         onClick={openChainModal}
                                         style={{ display: 'flex', alignItems: 'center' }}
                                         type="button"
                                     >
                                         {chain.hasIcon && (
                                             <div
-
                                                 style={{
                                                     background: chain.iconBackground,
                                                     width: 12,
@@ -84,6 +93,7 @@ export const CustomWalletBtn = () => {
                                             ? ` (${account.displayBalance})`
                                             : ''}
                                     </button>
+
                                 </div>
                             );
                         })()}

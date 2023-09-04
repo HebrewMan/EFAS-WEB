@@ -1,4 +1,4 @@
-import { connectorsForWallets, RainbowKitProvider, darkTheme, getDefaultWallets } from '@rainbow-me/rainbowkit';
+import { connectorsForWallets, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
 import {
   coinbaseWallet,
   imTokenWallet,
@@ -46,7 +46,6 @@ import { publicProvider } from 'wagmi/providers/public';
 // ]);
 
 
-
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [zkSync, zkSyncTestnet, bscTestnet,],
   [publicProvider()],
@@ -74,7 +73,7 @@ const wagmiConfig = createConfig({
 
 
 const myDarkTheme = darkTheme({
-  accentColor: '#000000',
+  accentColor: 'repeating-linear-gradient(45deg, black, transparent 100px)',
   accentColorForeground: 'white',
   borderRadius: 'small',
   fontStack: 'system',

@@ -2,17 +2,22 @@
 import '@/pages/Market/index.scss'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Statistic } from 'antd';
+import { StockOutlined } from '@ant-design/icons'
+import { getMarketList } from '@/http/api';
+import styles from '@/styles/index.module.scss';
 import downImg from '@/assets/icons/down2.png';
-import gunImg from '@/assets/icons/qiang1.png';
 import squaresImg from '@/assets/icons/Squares.png';
 import trianglesImg from '@/assets/icons/Triangles.png';
 import chevImg from '@/assets/icons/chev.png';
-import { Button, Statistic } from 'antd';
-import styles from '@/styles/index.module.scss';
-import { StockOutlined } from '@ant-design/icons'
 import usdtSVG from '@/assets/svg/USDT.svg';
 import ethVG from '@/assets/svg/ETH.svg';
+import { useContractWrite, useAccount } from 'wagmi'
+import { abi as usdtAbi } from '@/contract/abis/USDT.json';
+import Items from '@/pages/Item/items'
 export default function Market() {
+
+    const { address } = useAccount();
 
     const ETHSVG = () => <img src={ethVG} width={16} alt="" />
     const USDTSVG = () => <img src={usdtSVG} width={16} alt="" />
@@ -45,18 +50,25 @@ export default function Market() {
         fontSize: '16px'
     }
 
-    const changePath = (id: string) => {
-        console.log(id, 88888)
-        nav(`/item/${id}`)
-    }
+    const [items, setItems] = useState([]);
 
-    const list = [1, 2, 3, 4, 5, 6, 7, 8];
+
+    const { data, isLoading, isSuccess, writeAsync } = useContractWrite({
+        address: import.meta.env.VITE_USDT,
+        abi: usdtAbi,
+        functionName: 'mint',
+    });
+
+    useEffect(() => {
+        getMarketList().then((res: any) => {
+            if (res.data.data.items && res.data.data.items.length > 0) setItems(res.data.data.items);
+        });
+    })
 
     return (
         <>
-            <div className='wh-full flex-center'>
-                <div className="main w-900px ">
-
+            <div className='main h-full flex-center' style={{ margin: '0 auto' }}>
+                <div className="w-100%">
                     <div style={boxStyle} className='overflow-hidden mb-10px' >
                         <div className="title h-50px flex-center  color-white relative" style={{ background: 'rgba(5, 19, 29, 0.6)' }}>
                             <img src={squaresImg} width={10} alt="" className='absolute top-11px left-15px' />
@@ -71,7 +83,7 @@ export default function Market() {
                             </div>
                             <img src={chevImg} alt="" />
                             <div className='w-190px h-70px flex-col-center' style={{ background: 'rgba(5, 19, 29, 0.6)', borderRadius: '5px' }}>
-                                <Statistic title="ETHER VOLUME" className={styles.antd} value={5032323}
+                                <Statistic title="ETH VOLUME" className={styles.antd} value={5032323}
                                     style={statisticStyle} valueStyle={{ color: '#FFFC00', fontSize: '18px' }} suffix={<ETHSVG />} />
                             </div>
                             <img src={chevImg} alt="" />
@@ -83,7 +95,7 @@ export default function Market() {
                     </div>
 
 
-                    <div className={`w-900px ${window.innerHeight < 850 ? 'h-430px' : 'h-470px'} overflow-hidden `} style={boxStyle}>
+                    <div className={`list-box overflow-hidden `} style={boxStyle}>
                         <div className="cursor-pointer tab h-50px color-#8691B6 text-16px" style={{ background: 'rgba(5, 19, 29, 0.6)' }}>
                             {tabs.map(item =>
                                 <span key={item} className={`w-100px h-51px inline-block text-center line-height-51px mr-30px ${item == tab ? 'tab-cur' : ''}`}
@@ -104,33 +116,11 @@ export default function Market() {
                                 <img src={downImg} width={15} alt="" />
                             </p>
                         </div>
-
-                        <div className={`datas ${window.innerHeight < 850 ? 'h-340px' : 'h-380px'}  scrollbar-none`} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', overflowX: 'hidden', overflowY: 'auto' }}>
-                            {list.map(item =>
-                                <div key={item} className="cursor-pointer list w-850px flex-between-center pb-10px"
-                                    style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', margin: '0 auto', marginTop: '10px' }}
-                                    onClick={() => changePath(item.toString())}>
-                                    <div className='flex-between-center w-430px pr-22px'>
-                                        <img src={gunImg} width={75} height={75} alt="" className='' />
-                                        <div className='w-310px'>
-                                            <p className='text-18px pl-10px color-#AA41FD'>FAMAS ASSAULT RIFLE  &nbsp;&nbsp;Lv. 27</p>
-                                            <p className='text-14px pl-10px color-#ffffff mt-8px'>CERTIFICATE</p>
-                                            <p className='mt-5px pl-10px flex-y-center text-14px  color-#AA41FD'>
-                                                <i className='w-10px h-10px bg-#AA41FD block mr-5px '></i>EPIC
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <span className='w-215px text-white pl-22px pr-22px'>06 - 07 - 2023</span>
-                                    <p className='flex-between-center w-320px text-white pl-15px'>
-                                        <span>$120</span>
-                                        <Button type="primary" style={btnStyle} className='btn w-110px h-32px color-text'>{item == 3 ? 'CANCEL' : 'PURCHASE'}</Button>
-                                    </p>
-                                </div>
-                            )}
+                        <div className={`datas scrollbar-none`} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)', overflowX: 'hidden', overflowY: 'auto' }}>
+                            <Items items={items} />
                         </div>
                     </div>
                 </div>
-                {/* <Thanks /> */}
             </div>
         </>
     );

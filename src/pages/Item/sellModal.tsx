@@ -1,5 +1,6 @@
 import { Select, Modal, Input } from 'antd';
 import style from '@/styles/index.module.scss';
+import { CaretDownFilled } from '@ant-design/icons';
 export default function SellModal(props: any) {
 
     const tokens = [
@@ -21,12 +22,11 @@ export default function SellModal(props: any) {
                 onCancel={() => props.onClose()}
             >
 
-
                 <p className='bg-#24262a'>PRICE *</p>
                 <p className='mt-10px mb-10px bg-#24262a'>
                     <Input style={{ width: '100%' }} />
                 </p>
-                <Select defaultValue="USDT" style={{ width: 120 }} options={tokens} />
+                <Select defaultValue="USDT" style={{ width: 120 }} options={tokens} suffixIcon={<CaretDownFilled />} />
             </Modal>
         </>
     );

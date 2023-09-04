@@ -1,176 +1,100 @@
-import squaresImg from '@/assets/icons/Squares.png';
-import trianglesImg from '@/assets/icons/Triangles.png';
-import React, { useRef, useEffect } from 'react';
-import { Col, Row, Button } from 'antd';
+import React from 'react';
+import { Col, Row, Button, Checkbox, Input, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { sendVerificationCode, preRegister, login, buildWallet, hasPreRegister, getWeb2Assets } from '@/http/api';
+import { login, getUserInfo, } from '@/http/api';
 import "./login.scss";
-import { useSignMessage } from 'wagmi'
-import { MintNFT } from '@/enum/contract';
 import { setCookie } from '@/enum/common';
-import { useAccount, useNetwork } from 'wagmi';
-type InputRefsType = {
-    [key: string]: HTMLInputElement | null;
-};
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { ExportOutlined } from '@ant-design/icons';
+import styles from '@/styles/index.module.scss';
 
-export default function Login() {
+export default function Register() {
+    const [messageApi, contextHolder] = message.useMessage();
+
     const nav = useNavigate();
-    const [message, setMessage] = React.useState('Welcome to the EFAS');
-    const { address, connector } = useAccount();
-    const { signMessage } = useSignMessage({
-        message,
-        onSuccess(sign) {
-            // console.log('Success', data)
-            const data = {
-                account: address,
-                message,
-                sign
-            }
+    const [checked, setChecked] = useState(false);
+    const handleCheck = (e: CheckboxChangeEvent) => setChecked(e.target.checked);
 
-            console.log('Success', data)
+    const [isDisabled, setIsDisabled] = useState(false);
 
-            buildWallet(data).then(res => {
-                console.log(res);
-            }).catch(e => {
-                console.log("Error", e);
-            })
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
 
-        },
-    })
-
-    const [title, setTitle] = useState('Pre-Register');
-
-    const inputRefs = useRef<InputRefsType>({});
-    const verificationCodeRef = useRef<HTMLInputElement | null>(null);
-
-    const boxStyle = {
-        background: 'rgba(255,255,255,0.05)',
-        border: '1px solid #304755',
-        borderRadius: '15px'
-    }
-
-    const fields = [
-        { name: "email", label: "Email *", type: "text", span: 24, },
-        { name: "password", label: "PassWord *", type: "password", span: 24, },
-        { name: "repassword", label: "Re-enter Password *", type: "password", span: 24, },
-        { name: "firstName", label: "FirstName *", type: "text", span: 9, },
-        { name: "lastName", label: "LastName *", type: "text", span: 9, },
-        { name: "region", label: "Region *", type: "text", span: 6, },
-    ];
-
-    const sendCode = async () => {
-        // const res = await sendVerificationCode({ type: 1, email: '957713659@qq.com' });
-        const res2: any = await hasPreRegister('957713659@qq.com');
-        console.log(res2?.data);
-
-    }
-
-    const getFormData = () => {
-        const formData = fields.reduce((acc: { [key: string]: string }, field) => {
-            const input = inputRefs.current[field.name];
-            if (input) {
-                acc[field.name] = input.value;
-            }
-            return acc;
-        }, {});
-
-        // 检查 verificationCodeRef 是否存在，然后添加它的值到 formData 中
-        if (verificationCodeRef.current) {
-            formData.verificationCode = verificationCodeRef.current.value;
-        }
-
-        const password1 = inputRefs.current["password"]?.value;
-        const password2 = inputRefs.current["repassword"]?.value;
-        if (password1 && password2) {
-            if (password1 !== password2) {
-                alert("两次密码输入不一致！");
-                return {};
-            } else {
-                delete formData["repassword"];
-            }
-        }
-        return formData;
-    }
-
-    const handleRegister = async () => {
-        // const data = getFormData();
-        // Send POST request with data here.
-
-        signMessage();
-
-        // const res = await preRegister(data);
-        //setCookie('token', response.data.token, 1);
-
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        if (name == 'email') setIsDisabled(false);
+        setFormData(prevData => ({ ...prevData, [name]: value }));
     }
 
     const handleLogin = async () => {
-        const data = {
-            emailOrAccount: getFormData().email,
-            password: getFormData().password
+        if (!checked) {
+            messageApi.open({
+                type: 'warning',
+                content: 'Please check the efas agreement',
+            });
+            return;
         }
-        const res: any = await login(data);
-        console.log('login', res)
-        setCookie('token', res.headers['access-token'], 1);
+
+        const res: any = await login({
+            emailOrAccount: formData.email,
+            password: formData.password
+        });
+
+        if (res.data.statusCode == 200) {
+            setCookie('token', res.headers['access-token'], 3);
+            setCookie('rtoken', res.headers['x-access-token'], 3);
+            setCookie('account', formData.email, 3);
+            messageApi.open({
+                type: 'success',
+                content: 'Successful Login!',
+            });
+            const res2: any = await getUserInfo(encodeURIComponent(formData.email));
+            res2?.data?.data.preRegisterInfoDto?.firstName ? nav('/') : nav('/register');
+        } else {
+            messageApi.open({
+                type: 'error',
+                content: 'Login failed',
+            });
+        }
     }
-
-    const handleBuild = async () => {
-        console.log(connector)
-        //signature
-        handleLogin();
-
-        // signMessage();
-
-    }
-
-    const MintNFT = async () => {
-        const tx = await MintNFT();
-        console.log(tx);
-    }
-
-    useEffect(() => {
-        getWeb2Assets().then(res => {
-            console.log(res)
-        })
-    }, [])
 
     return (
         <>
-            <div className="w-50% max-w-800px overflow-hidden" style={boxStyle}>
-                <div className="title h-55px flex-y-center  color-white relative mb-7px" style={{ background: 'rgba(5, 19, 29, 0.6)' }}>
-                    <img src={squaresImg} width={10} alt="" className='absolute top-11px left-15px' />
-                    <span className='ml-38px text-20px'>{title}</span>
-                    <img src={trianglesImg} width={14} alt="" onClick={() => nav(-1)} className='cursor-pointer absolute top-11px right-15px' />
-                </div>
-                <div className="main ml-38px pb-20px">
+            {contextHolder}
+            <div className="login overflow-hidden h-full flex-center" style={{ margin: '0 auto' }}>
 
-                    <Row justify="space-between" className='mr-10px mb-10px box-border pr-20px' gutter={10}>
-                        {fields.map((field, index) => (
-                            <Col span={field.span} key={index}>
-                                <p className='color-text text-14px mt-7px mb-7px'>{field.label}</p>
-                                <input
-                                    ref={el => inputRefs.current[field.name] = el}
-                                    className='title-bk text-16px color-white h-45px'
-                                    type={field.type}
-                                />
-                            </Col>
-                        ))}
-                    </Row>
-
-                    <p className='color-text text-14px mb-7px'>Validation Code *</p>
+                <div className="w-100% ml-38px pb-20px" >
+                    <p className='text-center font-blod text-25px color-#ffffff'>LOG IN &nbsp;EFAS -- BETA</p>
+                    <p className='font-blod text-center text-15px color-#ffffff mt-20px mb-5px line-height-24px'>Log in to the game to experience the free public beta test at the end of 2023.</p>
+                    <p className='color-#ffffff text-center mb-10px'>bring your friends and play to earn!</p>
 
                     <Row className='mr-10px pr-20px' gutter={10}>
-                        <Col span={18} className=''>
-                            <input className='title-bk text-16px color-white h-45px' type="text" ref={verificationCodeRef} />
+                        <Col span={24} className={styles.antd + ' mb-10px'}>
+                            <p className='color-text text-14px mt-15px mb-15px'>Email *</p>
+                            <Input name='email' disabled={isDisabled} value={formData.email} onChange={handleChange} />
                         </Col>
 
-                        <Col flex="auto">
-                            <Button type="primary" className='btn wh-full text-14px p-0' onClick={sendCode}>SEND CODE</Button>
+                        <Col span={24} className={styles.antd}>
+                            <p className='color-text text-14px mt-7px mb-15px'>Password *</p>
+                            <Input.Password name='password' disabled={isDisabled} value={isDisabled ? '********' : formData.password} onChange={handleChange} />
                         </Col>
                     </Row>
 
-                    <Row className='mt-15px'>
-                        <Button type="primary" className='btn w-50% h-45px text-14px' onClick={handleBuild}>CONFIREM</Button>
+                    <div className='text-center mt-20px'>
+                        <Checkbox checked={checked} disabled={isDisabled} onChange={handleCheck} className='color-white'>Agree to receive occasional emails such as news, offers, and surveys.</Checkbox>
+                        <p className='text-12px color-#fff flex-center'>Don't have an account ?
+                            <Button type="link" className='flex-center' style={{ padding: 0 }} onClick={() => nav('/register')} >
+                                &nbsp;Register Now<ExportOutlined />
+                            </Button>
+                        </p>
+                    </div>
+
+                    <Row className='mt-10px'>
+                        <Button type="primary" className='btn w-50% h-45px text-14px' onClick={handleLogin}>CONFIRM </Button>
                     </Row>
+
                 </div>
             </div>
         </>

@@ -1,4 +1,5 @@
 .antd {
+
     :global {
         .ant-statistic-title {
             color: #A7BAFC;
@@ -12,12 +13,14 @@
         }
 
         .ant-modal-content {
+            min-width: 350px;
             background-color: #24262a;
             color: #ffffff;
 
             .ant-modal-header {
                 background: none;
                 color: #ffffff;
+                // text-align: center;
             }
 
             .ant-modal-title {
@@ -27,10 +30,106 @@
             .ant-modal-close-x {
                 color: #ffffff99;
             }
+
+
         }
+
+        .ant-select-selector {
+            height: 45px !important;
+            display: flex;
+            align-items: center;
+            background-color: #05070E !important;
+            border: none !important;
+            color: #fff !important;
+
+            .ant-select-selection-item {
+                color: #ffffff !important;
+            }
+        }
+
+        .ant-select-arrow {
+            color: #fff !important;
+        }
+
+        .ant-input {
+            height: 45px !important;
+            color: #fff;
+            background: black !important;
+            border: none !important;
+        }
+
+        .ant-input-affix-wrapper {
+            background: black !important;
+            border: none !important;
+            height: 45px !important;
+
+            .ant-input {
+                height: 35px !important;
+                color: #fff;
+                background: black !important;
+            }
+
+            .anticon svg {
+                color: #fff;
+            }
+        }
+
+        .ant-result-title {
+            color: #fff !important;
+        }
+
+        .ant-result-subtitle {
+            color: #fff !important
+        }
+
+        .ant-result-extra {
+            // margin: 5px 0 0 0;
+        }
+
+
+        // .antion svg {
+        //     color: #fff !important;
+        // }
+
 
         // .ant-result-title {
         //     color: #ff4d4f;
         // }
     }
+}
+
+.login {
+    :global {
+        .ant-modal-content {
+            // width: 30%;
+            min-width: 400px !important;
+            max-width: 700px;
+            background-color: #24262a;
+            color: #ffffff;
+            margin: 0 auto;
+
+            .ant-modal-header {
+                background: none;
+                color: #ffffff;
+                text-align: center;
+            }
+
+            .ant-modal-title {
+                color: #fff;
+            }
+
+            .ant-modal-close-x {
+                color: #ffffff99;
+            }
+
+            .ant-modal-body {
+                text-align: center;
+            }
+
+
+        }
+    }
+
+
+
 }

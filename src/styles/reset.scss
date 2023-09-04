@@ -435,3 +435,115 @@ video {
 .scrollbar-none::-webkit-scrollbar {
   width: 0px;
 }
+
+.ant-input {
+  height: 45px !important;
+  display: flex;
+  align-items: center;
+}
+
+
+.ant-input-cust {
+  display: none;
+  align-items: center;
+  background: black !important;
+}
+
+
+
+
+.datas {
+  .ant-empty-image {
+    img {
+      margin: 0 auto;
+    }
+  }
+}
+
+/* 适配 13寸 MacBook */
+@media (max-width: 1280px) {
+  .main {
+    width: 900px;
+  }
+
+  .login {
+    width: 700px;
+  }
+
+  .list-box {
+    height: 440px;
+
+    .datas {
+      height: 350px !important;
+    }
+  }
+}
+
+/* 适配 15寸 和 16寸 MacBook */
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .main {
+    width: 1000px;
+  }
+
+  .login {
+    width: 700px;
+  }
+
+  .list-box {
+    height: 450px;
+
+    .datas {
+      height: 350px !important;
+    }
+  }
+}
+
+/* 适配 27寸 显示器 */
+@media (min-width: 1441px) and (max-width: 2560px) {
+  .main {
+    width: 1200px;
+  }
+
+  .login {
+    width: 800px;
+  }
+
+  .list-box {
+    height: 550px;
+
+    .datas {
+      height: 460px !important;
+    }
+  }
+
+  .claim-box {
+    .datas {
+      height: 650px;
+    }
+  }
+}
+
+/* 适配 32寸 显示器（假设为4K分辨率） */
+@media (min-width: 2561px) {
+  .main {
+    width: 1400px;
+  }
+
+  .login {
+    width: 1000px;
+  }
+
+  .list-box {
+    height: 650px;
+
+    .datas {
+      height: 560px !important;
+    }
+  }
+
+  .claim-box {
+    .datas {
+      height: 850px;
+    }
+  }
+}

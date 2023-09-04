@@ -11,12 +11,38 @@ export const Claim = lazyLoad('Claim');
 export const Market = lazyLoad('Market');
 export const MyAssets = lazyLoad('MyAssets');
 export const Item = lazyLoad('Item');
+export const Register = lazy(() => import('@/components/Register/index'));
+export const Login = lazy(() => import('@/components/Login/index'));
+
+
 const routers = [
   {
     path: '/',
     element: (
       <RequireAuth>
         <Market />
+      </RequireAuth>
+    ),
+    meta: {
+      title: '',
+    },
+  },
+  {
+    path: '/register',
+    element: (
+      <RequireAuth>
+        <Register />
+      </RequireAuth>
+    ),
+    meta: {
+      title: '',
+    },
+  },
+  {
+    path: '/login',
+    element: (
+      <RequireAuth>
+        <Login />
       </RequireAuth>
     ),
     meta: {

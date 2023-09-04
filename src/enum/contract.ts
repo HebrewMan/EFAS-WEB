@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { usePrepareContractWrite, useContractWrite } from 'wagmi'
 
 export function MintNFT() {
